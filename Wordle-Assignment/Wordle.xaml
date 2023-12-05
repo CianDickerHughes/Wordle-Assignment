@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Wordle_Assignment.Wordle"
+             Title="Wordle">
+    <!-- Cian Dicker-Hughes -->
+    <!-- G00415413 -->
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to Wordle!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Wordle_Assignment.MainPage">
 
+    <!-- Cian Dicker-Hughes -->
+    <!-- G00415413 -->
+    
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
@@ -13,20 +16,28 @@
                 Source="wordle.png"
                 SemanticProperties.Description="Wordle!"
                 HeightRequest="200"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"/>
 
             <Label
                 Text="Welcome to Wordle!"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />
-
+                HorizontalOptions="Center"/>
+            
+            <!-- Move to the Wordle the game -->
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                x:Name="MoveToGame"
+                Text="Start Game"
+                Clicked="MoveToWordle"
+                HorizontalOptions="Center" 
+                WidthRequest="200"/>
+
+            <!-- Move to about Wordle and how to play-->
+            <Button x:Name="MoveToAbout"
+                    Text="About Wordle"
+                    Clicked="MoveToAbout_Clicked"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"/>
 
         </VerticalStackLayout>
     </ScrollView>
