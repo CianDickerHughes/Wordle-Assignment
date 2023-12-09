@@ -2,14 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Wordle_Assignment.Wordle"
-             Title="Wordle">
+             Title="Wordle"
+             xmlns:models ="clr-namespace:Wordle_Assignment">
     <!-- Cian Dicker-Hughes -->
     <!-- G00415413 -->
+
+    <ContentPage.BindingContext>
+        <models:WordsRepository/>
+    </ContentPage.BindingContext>
 
     <VerticalStackLayout>
         <Label 
             Text="Welcome to Wordle!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button x:Name="button"
+                Text="go"
+                Clicked="getWords_Clicked"/>
+
+
+        <Label Text="{Binding Words.GetWords}"
+               FontSize="32"
+               HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>
