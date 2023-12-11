@@ -8,14 +8,14 @@ namespace Wordle_Assignment
     {
         private bool isBusy;
         private Random random;
-        private List<Words> wordslist;
+        private List<string> wordslist;
         HttpClient httpClient;
         private int _wordsCount;
 
 
         public WordsRepository()
         {
-            wordslist = new List<Words>();
+            wordslist = new List<string>();
             random = new Random();
             // fillWordsList();
             _wordsCount = wordslist.Count;
@@ -51,27 +51,29 @@ namespace Wordle_Assignment
             {
                 return;
             }
-            var response = await httpClient.GetAsync("https://raw.githubusercontent.com/DonH-ITS/jsonfiles/main/words.txt");
+            string filename = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "words.txt");
+            if (!File.Exists(filename)){
+                var response = await httpClient.GetAsync("https://raw.githubusercontent.com/DonH-ITS/jsonfiles/main/words.txt");
 
-            if (response.IsSuccessStatusCode)
-            {
-                string contents = await response.Content.ReadAsStringAsync();
-                //wordslist = JsonSerializer.Deserialize<List<Words>>(contents);
-                //Save cntents t a fie
-                using (StreamWriter writer = new StreamWriter("words.txt"))
+                if (response.IsSuccessStatusCode)
                 {
-                    writer.WriteLine(contents);
+                    string contents = await response.Content.ReadAsStringAsync();
+                    //wordslist = JsonSerializer.Deserialize<List<Words>>(contents);
+                    //Save cntents t a fie
+                    using (StreamWriter writer = new StreamWriter(filename))
+                    {
+                        writer.Write(contents);
+                    }
                 }
-            }
-            ReadTheWordsfile();
+            }                  
+            ReadTheWordsfile(filename);
+           
         }
 
-        public void ReadTheWordsfile()
+        public void ReadTheWordsfile(string filename)
         {
-            GetWords();
-            using (StreamReader s = new StreamReader("words.txt"))
+            using (StreamReader s = new StreamReader(filename))
             {
-                List<string> wordslist = new List<string>();
                 string line = "";
                 while ((line = s.ReadLine()) != null)
                 {
@@ -82,8 +84,8 @@ namespace Wordle_Assignment
             }
         }
 
-       private ObservableCollection<Words> _words = new ObservableCollection<Words>();
-        public ObservableCollection<Words> Words
+       private ObservableCollection<string> _words = new ObservableCollection<string>();
+        public ObservableCollection<string> Words
         {
             get
             {
@@ -112,7 +114,7 @@ namespace Wordle_Assignment
             finally { IsBusy = false; }
         }
 
-        public List<Words> theList
+        public List<string> theList
         {
             get { return wordslist; }
             set { wordslist = value; }
@@ -121,6 +123,13 @@ namespace Wordle_Assignment
         public Command GetWordCommand { get; }
 
         public Command GoToDetailsCommand { get; }
+
+        public string GiveRandomWord()
+        {
+            int which = random.Next(0, wordslist.Count);
+            return wordslist[which];
+
+        }
 
     }
 }

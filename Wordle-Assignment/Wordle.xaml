@@ -21,8 +21,6 @@
                 Clicked="getWords_Clicked"/>
 
 
-        <Label Text="{Binding Words.GetWords}"
-               FontSize="32"
-               HorizontalOptions="Center"/>
+        <CollectionView ItemsSource="{Binding Words}"/>
     </VerticalStackLayout>
 </ContentPage>
