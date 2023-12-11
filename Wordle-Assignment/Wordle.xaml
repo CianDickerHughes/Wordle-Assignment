@@ -16,6 +16,16 @@
             Text="Welcome to Wordle!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Grid  x:Name="GridGameTable" BackgroundColor="White" 
+          HorizontalOptions="Center"
+          VerticalOptions="Start"
+          HeightRequest="350"
+          WidthRequest="300" RowDefinitions="*,*,*,*,*,*"
+          ColumnDefinitions="*,*,*,*,*">
+
+        </Grid>
+
         <Button x:Name="button"
                 Text="go"
                 Clicked="getWords_Clicked"/>

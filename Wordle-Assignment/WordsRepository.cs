@@ -4,8 +4,12 @@ using System.Runtime.CompilerServices;
 
 namespace Wordle_Assignment
 {
+    // Cian Dicker-Hughes
+    // G00415413@atu.ie
+
     public class WordsRepository
     {
+        // Variables
         private bool isBusy;
         private Random random;
         private List<string> wordslist;
@@ -17,11 +21,9 @@ namespace Wordle_Assignment
         {
             wordslist = new List<string>();
             random = new Random();
-            // fillWordsList();
             _wordsCount = wordslist.Count;
             httpClient = new();
-            //GetWordCommand = new Command(async () => await MakeCollection());
-            //GoToDetailsCommand = new Command<Words>(async (monkey) => await GoToDetails(monkey));
+            
         }
 
 
@@ -124,7 +126,8 @@ namespace Wordle_Assignment
 
         public Command GoToDetailsCommand { get; }
 
-        public string GiveRandomWord()
+        // get random word from the list
+        public string GetRandomWord()
         {
             int which = random.Next(0, wordslist.Count);
             return wordslist[which];
@@ -133,49 +136,3 @@ namespace Wordle_Assignment
 
     }
 }
-
-
-
-
-
-        /* public List<Words> theList
-         {
-             get { return _list; }
-             set { _list = value; }
-         }
-
-         private int _wordsCount;
-
-         public int wordsCount
-         {
-             get { return _wordsCount; }
-             set { _wordsCount = value; }
-         }
-
-         public async void fillWordsList() 
-         {
-             String line;
-             Words aWords = new Words();
-             try 
-             { 
-                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync("https://raw.githubusercontent.com/DonH-ITS/jsonfiles/main/words.txt");
-                 using StreamReader reader = new StreamReader(fileStream);
-                 while ((line = reader.ReadLine()) != null) 
-                 {
-                     aWords = new Words();
-                     aWords.theWords = line;
-                     _list.Add(aWords);
-                 } // end loop
-             }
-             catch (Exception ex) 
-             { 
-                 _wordsCount = -1;
-                 Words error = new Words();
-                 error.theWords = ex.ToString();
-                 _list.Add(error);
-             }// end catch
-
-         }// end fill list
-
-
- */

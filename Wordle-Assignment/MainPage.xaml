@@ -13,12 +13,13 @@
             Padding="30,0"
             VerticalOptions="Center">
 
+            <!-- title and image -->
             <Image
                 Source="wordle.png"
                 SemanticProperties.Description="Wordle!"
                 HeightRequest="200"
                 HorizontalOptions="Center"/>
-
+            <!-- welcome -->
             <Label
                 Text="Welcome to Wordle!"
                 SemanticProperties.HeadingLevel="Level1"
