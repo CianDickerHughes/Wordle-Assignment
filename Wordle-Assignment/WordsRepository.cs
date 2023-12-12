@@ -26,7 +26,7 @@ namespace Wordle_Assignment
             
         }
 
-
+        // to see if busy
         public bool IsBusy
         {
             get => isBusy;
@@ -47,6 +47,7 @@ namespace Wordle_Assignment
         }
         public bool IsNotBusy => !IsBusy;
 
+        // get word from git and make text file
         public async Task GetWords()
         {
             if (wordslist.Count > 0)
@@ -72,6 +73,7 @@ namespace Wordle_Assignment
            
         }
 
+        // read words from file and but it in a list
         public void ReadTheWordsfile(string filename)
         {
             using (StreamReader s = new StreamReader(filename))

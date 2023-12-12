@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Wordle_Assignment;
 
@@ -16,8 +17,6 @@ public partial class Wordle : ContentPage
 		wordsmodel = new ();
         CreatetheGrid();
 
-        //BindingContext = wordsmodel;
-
     }
 
 	private async void getWords_Clicked(object sender, EventArgs e)
@@ -33,14 +32,24 @@ public partial class Wordle : ContentPage
         await DisplayAlert("hello", word, "ok");
     }
 
-    public void CreatetheGrid()
-    {
+    // make a grid with enter tags
+    public void CreatetheGrid() { 
+        double devicewidth = Preferences.Default.Get("devicewidth", 480.0);
+        if(devicewidth< 480) {
+            int newwidth = ((int)devicewidth / 5) * 10;
+            GridGameTable.WidthRequest = newwidth;
+            GridGameTable.HeightRequest = ((int) devicewidth / 6) * 10;
+        }
+        int margin = 0;
+        if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+            margin = -2;
         for (int i = 0; i < 10; ++i)
         {
             for (int j = 0; j < 10; ++j)
             {
                 Border border = new Border
                 {
+                    Margin = margin,
                     StrokeThickness = 2,
                     Background = boardColour,
                     Padding = new Thickness(3, 3),
@@ -50,7 +59,7 @@ public partial class Wordle : ContentPage
                     {
                         CornerRadius = new CornerRadius(4, 4, 4, 4)
                     },
-                    Stroke = new LinearGradientBrush
+                    Stroke = new LinearGradientBrush 
                     {
                         EndPoint = new Point(0, 1),
                         GradientStops = new GradientStopCollection
@@ -63,10 +72,13 @@ public partial class Wordle : ContentPage
                     {
                         Text = "",
                         TextColor = Colors.Red,
-                        FontSize = 10,
+                        FontSize = 20,
                         FontAttributes = FontAttributes.Bold,
-                        //VerticalOptions = LayoutOptions.Center,
-                        //HorizontalOptions = horizontaloption(i)
+                        VerticalOptions = LayoutOptions.Center,
+                        VerticalTextAlignment = TextAlignment.Center,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        MaxLength = 1,
+                        //Keyboard.Chat
                     }
                 };
                 GridGameTable.Add(border, j, i);
