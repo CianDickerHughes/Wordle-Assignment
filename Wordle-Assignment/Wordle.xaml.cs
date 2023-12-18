@@ -1,5 +1,4 @@
 using Microsoft.Maui.Controls.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Wordle_Assignment;
 
@@ -10,15 +9,18 @@ public partial class Wordle : ContentPage
 {
 	WordsRepository wordsmodel;
     private Color boardColour = Color.FromArgb("#ffffff");
+    private int nextRow;
 
     public Wordle()
 	{
 		InitializeComponent();
 		wordsmodel = new ();
         CreatetheGrid();
+        nextRow = 0;
 
     }
 
+    // just give random word
 	private async void getWords_Clicked(object sender, EventArgs e)
     {
 		await wordsmodel.MakeCollection();
@@ -43,9 +45,9 @@ public partial class Wordle : ContentPage
         int margin = 0;
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
             margin = -2;
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 6; ++i)
         {
-            for (int j = 0; j < 10; ++j)
+            for (int j = 0; j < 5; ++j)
             {
                 Border border = new Border
                 {
@@ -59,7 +61,7 @@ public partial class Wordle : ContentPage
                     {
                         CornerRadius = new CornerRadius(4, 4, 4, 4)
                     },
-                    Stroke = new LinearGradientBrush 
+                    Stroke = new LinearGradientBrush
                     {
                         EndPoint = new Point(0, 1),
                         GradientStops = new GradientStopCollection
@@ -70,14 +72,19 @@ public partial class Wordle : ContentPage
                     },
                     Content = new Entry
                     {
+                        //X:Name = "entry",
                         Text = "",
                         TextColor = Colors.Red,
                         FontSize = 20,
+                        TextTransform = TextTransform.Uppercase,
                         FontAttributes = FontAttributes.Bold,
                         VerticalOptions = LayoutOptions.Center,
                         VerticalTextAlignment = TextAlignment.Center,
                         HorizontalTextAlignment = TextAlignment.Center,
                         MaxLength = 1,
+                        IsEnabled = whichrowEnabled(i),
+                        
+
                         //Keyboard.Chat
                     }
                 };
@@ -85,4 +92,16 @@ public partial class Wordle : ContentPage
             }
         }
     }
+    // enabled which row
+    private bool whichrowEnabled(int col)
+    {
+        if (col == nextRow) {
+            return true;
+        }
+        else {
+            nextRow = 0;
+            return false;
+        }
+    }
+
 }
