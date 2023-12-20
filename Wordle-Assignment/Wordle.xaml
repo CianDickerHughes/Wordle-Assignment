@@ -26,6 +26,11 @@
 
         </Grid>
 
+        <Button x:Name="wordGuess"
+                Text="Enter"
+                Clicked="wordGuess_Clicked"/>
+
+
         <Button x:Name="button"
                 Text="go"
                 Clicked="getWords_Clicked"/>
