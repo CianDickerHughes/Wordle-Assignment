@@ -31,16 +31,19 @@ public partial class Wordle : ContentPage
 		}
 		//await DisplayAlert("hello", blah, "ok");
 		string word = wordsmodel.GetRandomWord();
-        await DisplayAlert("hello", word, "ok");
+        await DisplayAlert("This is the word", word, "ok");
     }
 
     // make a grid with enter tags
-    public void CreatetheGrid() { 
+    public void CreatetheGrid()
+    {
+        List<Entry> entryFields = new List<Entry>();
         double devicewidth = Preferences.Default.Get("devicewidth", 480.0);
-        if(devicewidth< 480) {
+        if (devicewidth < 480)
+        {
             int newwidth = ((int)devicewidth / 5) * 10;
             GridGameTable.WidthRequest = newwidth;
-            GridGameTable.HeightRequest = ((int) devicewidth / 6) * 10;
+            GridGameTable.HeightRequest = ((int)devicewidth / 6) * 10;
         }
         int margin = 0;
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
@@ -49,6 +52,33 @@ public partial class Wordle : ContentPage
         {
             for (int j = 0; j < 5; ++j)
             {
+                Entry entry = new Entry
+                {
+                    Text = "",
+                    TextColor = Colors.Red,
+                    FontSize = 20,
+                    TextTransform = TextTransform.Uppercase,
+                    FontAttributes = FontAttributes.Bold,
+                    VerticalOptions = LayoutOptions.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    MaxLength = 1,
+                    IsEnabled = whichrowEnabled(i)
+                };
+                entry.TextChanged += (sender, args) =>
+                {
+                    if (args.NewTextValue.Length > 0) // Check if a character is entered
+                    {
+                        var currentEntry = (Entry)sender;
+                        int currentIndex = entryFields.IndexOf(currentEntry);
+                        if (currentIndex < entryFields.Count - 1)
+                        {
+                            var nextEntry = entryFields[currentIndex + 1];
+                            nextEntry.Focus(); // Move focus to the next entry
+                        }
+                    }
+                };
+
                 Border border = new Border
                 {
                     Margin = margin,
@@ -65,33 +95,19 @@ public partial class Wordle : ContentPage
                     {
                         EndPoint = new Point(0, 1),
                         GradientStops = new GradientStopCollection
-                            {
-                                new GradientStop { Color = Colors.Black, Offset = 0.1f },
-                                new GradientStop { Color = Colors.Black, Offset = 1.0f }
-                            },
-                    },
-                    Content = new Entry
                     {
-                        //X:Name = "entry",
-                        Text = "",
-                        TextColor = Colors.Red,
-                        FontSize = 20,
-                        TextTransform = TextTransform.Uppercase,
-                        FontAttributes = FontAttributes.Bold,
-                        VerticalOptions = LayoutOptions.Center,
-                        VerticalTextAlignment = TextAlignment.Center,
-                        HorizontalTextAlignment = TextAlignment.Center,
-                        MaxLength = 1,
-                        IsEnabled = whichrowEnabled(i),
-                        
-
-                        //Keyboard.Chat
-                    }
+                        new GradientStop { Color = Colors.Black, Offset = 0.1f },
+                        new GradientStop { Color = Colors.Black, Offset = 1.0f }
+                    },
+                    },
+                    Content = entry
                 };
+                entryFields.Add(entry);
                 GridGameTable.Add(border, j, i);
             }
         }
     }
+
     // enabled which row
     private bool whichrowEnabled(int col)
     {
