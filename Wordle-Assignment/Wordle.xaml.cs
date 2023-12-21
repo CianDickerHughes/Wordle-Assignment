@@ -44,8 +44,7 @@ public partial class Wordle : ContentPage
     }
 
     // make a grid with enter tags
-    public void CreatetheGrid()
-    {
+    public void CreatetheGrid() { 
         double devicewidth = Preferences.Default.Get("devicewidth", 480.0);
         if (devicewidth < 480)
         {
@@ -61,36 +60,6 @@ public partial class Wordle : ContentPage
         {
             for (int j = 0; j < 5; ++j)
             {
-                // make the Entry
-                Entry entry = new Entry
-                {
-                    Text = "",
-                    TextColor = Colors.Red,
-                    FontSize = 20,
-                    TextTransform = TextTransform.Uppercase,
-                    FontAttributes = FontAttributes.Bold,
-                    VerticalOptions = LayoutOptions.Center,
-                    VerticalTextAlignment = TextAlignment.Center,
-                    HorizontalTextAlignment = TextAlignment.Center,
-                    MaxLength = 1,
-                    IsEnabled = whichrowEnabled(i)
-                };
-                entry.TextChanged += (sender, args) =>
-                {
-                    // Check if a character is entered
-                    if (args.NewTextValue.Length > 0)
-                    {
-                        var currentEntry = (Entry)sender;
-                        int currentIndex = entryFields.IndexOf(currentEntry);
-                        // Move focus to the next entry
-                        if (currentIndex < entryFields.Count - 1)
-                        {
-                            var nextEntry = entryFields[currentIndex + 1];
-                            nextEntry.Focus();
-                        }
-                    }
-                };
-                // making the border
                 Border border = new Border
                 {
                     Margin = margin,
