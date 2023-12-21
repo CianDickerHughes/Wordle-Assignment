@@ -19,6 +19,7 @@ public partial class Wordle : ContentPage
 		wordsmodel = new ();
         CreatetheGrid();
         nextRow = 0;
+        hello();
 
     }
 
@@ -143,6 +144,10 @@ public partial class Wordle : ContentPage
                 entry.IsEnabled = isRowEnabled;
             }
         }
+    }
+
+    public async void hello() {
+        await DisplayAlert("This is the word", "yes", "ok");
     }
 
 }
