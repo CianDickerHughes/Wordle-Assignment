@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using System.Diagnostics;
 
 namespace Wordle_Assignment;
 
@@ -8,17 +9,18 @@ namespace Wordle_Assignment;
 public partial class Wordle : ContentPage
 {
     List<Entry> entryFields = new List<Entry>();
+    List<string> entryTextList = new List<string>();
     WordsRepository wordsmodel;
-    private Color boardColour = Color.FromArgb("#ffffff");
+    private Color boardColour = Color.FromArgb("#696969");
     private int nextRow = 0;
     private int currentRow = 0;
+    private int currentEnabledRow = -1;
 
     public Wordle()
     {
         InitializeComponent();
         wordsmodel = new();
         CreatetheGrid();
-        nextRow = 0;
 
     }
 
@@ -38,8 +40,33 @@ public partial class Wordle : ContentPage
     // move to next row and see if guess is correct
     private void wordGuess_Clicked(object sender, EventArgs e)
     {
+        int initialCount = entryTextList.Count;
+
+        entryTextList.Clear();
+
+        // Loop through each Entry in the grid and collect the words
+        foreach (Entry entry in entryFields.Skip(initialCount)) 
+        {
+            if (!string.IsNullOrWhiteSpace(entry.Text)) 
+            {
+                entryTextList.Add(entry.Text); 
+            }
+        }
+        //StoreText();
+        GridGameTable.Children.Clear(); // Clear the existing grid contents
         nextRow++;
-        UpdateRowEnablement();
+        CreatetheGrid();
+
+        // debuging
+        int listCapacity = entryTextList.Count;
+        string test = "1. ";
+        for (int i = 0;i < listCapacity;i++)
+        {
+            test = test +" "+ entryTextList[i];
+        }
+        dubug.Text = test.ToString();
+
+        int x = nextRow;
     }
 
     // make a grid with enter tags
@@ -55,16 +82,20 @@ public partial class Wordle : ContentPage
         int margin = 0;
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
             margin = -2;
+
+        int entryTextIndex = 0;
+
         // making the border and entry
         for (int i = 0; i < 6; ++i)
         {
             for (int j = 0; j < 5; ++j)
             {
+                string entryText = entryTextIndex < entryTextList.Count ? entryTextList[entryTextIndex] : ""; // Get the text from entryTextList or set it to blank if out of range
                 // make the Entry
                 Entry entry = new Entry
                 {
-                    Text = "",
-                    TextColor = Colors.Red,
+                    Text = entryText,
+                    TextColor = Colors.White,
                     FontSize = 20,
                     TextTransform = TextTransform.Uppercase,
                     FontAttributes = FontAttributes.Bold,
@@ -99,10 +130,6 @@ public partial class Wordle : ContentPage
                     Padding = new Thickness(3, 3),
                     HorizontalOptions = LayoutOptions.Fill,
                     VerticalOptions = LayoutOptions.Fill,
-                    StrokeShape = new RoundRectangle
-                    {
-                        CornerRadius = new CornerRadius(4, 4, 4, 4)
-                    },
                     Stroke = new LinearGradientBrush
                     {
                         EndPoint = new Point(0, 1),
@@ -116,6 +143,7 @@ public partial class Wordle : ContentPage
                 };
                 entryFields.Add(entry);
                 GridGameTable.Add(border, j, i);
+                entryTextIndex++;
             }
         }
     }
@@ -129,23 +157,7 @@ public partial class Wordle : ContentPage
         }
         else
         {
-            nextRow = 0;
             return false;
         }
     }
-
-    private void UpdateRowEnablement()
-    {
-        for (int i = 0; i < 6; i++) // Assuming 6 rows based on your previous code
-        {
-            bool isRowEnabled = i == currentRow;
-
-            foreach (var entry in entryFields.Where(entry => Grid.GetRow(entry) == i))
-            {
-                // Explicitly enable the current row and disable others
-                entry.IsEnabled = isRowEnabled;
-            }
-        }
-    }
-
 }

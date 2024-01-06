@@ -17,7 +17,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Grid  x:Name="GridGameTable" BackgroundColor="White" 
+        <Grid  x:Name="GridGameTable" BackgroundColor="Black" 
           HorizontalOptions="Center"
           VerticalOptions="Start"
           HeightRequest="350"
@@ -25,6 +25,11 @@
           ColumnDefinitions="*,*,*,*,*">
 
         </Grid>
+
+        <Label x:Name="dubug"
+            Text="Wordle!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
 
         <Button x:Name="wordGuess"
                 Text="Enter"
