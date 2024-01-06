@@ -42,14 +42,17 @@ public partial class Wordle : ContentPage
     {
         int initialCount = entryTextList.Count;
 
-        entryTextList.Clear();
+        //entryTextList.Clear();
 
         // Loop through each Entry in the grid and collect the words
-        foreach (Entry entry in entryFields.Skip(initialCount)) 
+        foreach (Entry entry in entryFields.Skip(initialCount))
         {
-            if (!string.IsNullOrWhiteSpace(entry.Text)) 
-            {
-                entryTextList.Add(entry.Text); 
+            if (!string.IsNullOrWhiteSpace(entry.Text))
+            { 
+                //if (!entryTextList.Contains(entry.Text))
+               
+                    entryTextList.Add(entry.Text);
+                
             }
         }
         //StoreText();
@@ -84,6 +87,7 @@ public partial class Wordle : ContentPage
             margin = -2;
 
         int entryTextIndex = 0;
+        entryFields.Clear();
 
         // making the border and entry
         for (int i = 0; i < 6; ++i)
