@@ -8,73 +8,84 @@ namespace Wordle_Assignment;
 
 public partial class Wordle : ContentPage
 {
+    // Variables
     List<Entry> entryFields = new List<Entry>();
     List<string> entryTextList = new List<string>();
+    List<string> userWords = new List<string>();
     WordsRepository wordsmodel;
+    CheckWord wordCheck;
     private Color boardColour = Color.FromArgb("#696969");
-    private int nextRow = 0;
-    private int currentRow = 0;
-    private int currentEnabledRow = -1;
+    private string theWord = "";
+    private int nextRow = 0, whichrow = 0;
 
     public Wordle()
     {
         InitializeComponent();
         wordsmodel = new();
         CreatetheGrid();
+        getRandonWord();
+
 
     }
 
-    // just give random word
+    // get the user word
+    public List<string> GetUserWord() 
+    {
+        int maxWhichrow = whichrow + 5;
+        for (int i = whichrow; i < maxWhichrow && i < entryTextList.Count; i++) 
+        {
+            userWords.Add(entryTextList[i]);
+        }
+        return userWords;
+    }
+    // get the word
+    public string GetWord()
+    {
+        return theWord;
+    }
+
+    // just give random word just for debuging
     private async void getWords_Clicked(object sender, EventArgs e)
     {
-        await wordsmodel.MakeCollection();
-        string blah = "";
-        for (int i = 0; i < wordsmodel.Words.Count && i < 20; i++)
-        {
-            blah += wordsmodel.Words[i] + "\n";
-        }
-        //await DisplayAlert("hello", blah, "ok");
-        string word = wordsmodel.GetRandomWord();
+        string word = wordCheck.GetIsItCorrect();
         await DisplayAlert("This is the word", word, "ok");
     }
+
+    // getting the word to start game
+    private async void getRandonWord()
+    {
+        await wordsmodel.MakeCollection();
+        theWord = wordsmodel.GetRandomWord();
+        await DisplayAlert("This is the word", theWord, "ok");
+    }
+
     // move to next row and see if guess is correct
-    private void wordGuess_Clicked(object sender, EventArgs e)
+    private void WordGuess_Clicked(object sender, EventArgs e)
     {
         int initialCount = entryTextList.Count;
-
-        //entryTextList.Clear();
 
         // Loop through each Entry in the grid and collect the words
         foreach (Entry entry in entryFields.Skip(initialCount))
         {
+            // get the letters for the entry in the grid
             if (!string.IsNullOrWhiteSpace(entry.Text))
             { 
-                //if (!entryTextList.Contains(entry.Text))
-               
                     entryTextList.Add(entry.Text);
-                
             }
         }
-        //StoreText();
-        GridGameTable.Children.Clear(); // Clear the existing grid contents
+
+        wordCheck = new();
+
+        // make grid with text and move to new row
+        GridGameTable.Children.Clear(); 
         nextRow++;
         CreatetheGrid();
-
-        // debuging
-        int listCapacity = entryTextList.Count;
-        string test = "1. ";
-        for (int i = 0;i < listCapacity;i++)
-        {
-            test = test +" "+ entryTextList[i];
-        }
-        dubug.Text = test.ToString();
-
-        int x = nextRow;
     }
 
     // make a grid with enter tags
     public void CreatetheGrid()
     {
+        // is it on moble or destop
         double devicewidth = Preferences.Default.Get("devicewidth", 480.0);
         if (devicewidth < 480)
         {
@@ -107,7 +118,7 @@ public partial class Wordle : ContentPage
                     VerticalTextAlignment = TextAlignment.Center,
                     HorizontalTextAlignment = TextAlignment.Center,
                     MaxLength = 1,
-                    IsEnabled = whichrowEnabled(i)
+                    IsEnabled = WhichrowEnabled(i)
                 };
                 entry.TextChanged += (sender, args) =>
                 {
@@ -153,7 +164,7 @@ public partial class Wordle : ContentPage
     }
 
     // enabled which row
-    private bool whichrowEnabled(int col)
+    private bool WhichrowEnabled(int col)
     {
         if (col == nextRow)
         {

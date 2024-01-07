@@ -97,6 +97,7 @@ namespace Wordle_Assignment
             }
         }
 
+        // make the collection to get the word
         public async Task MakeCollection()
         {
             if (IsBusy)
@@ -117,16 +118,6 @@ namespace Wordle_Assignment
             }
             finally { IsBusy = false; }
         }
-
-        public List<string> theList
-        {
-            get { return wordslist; }
-            set { wordslist = value; }
-        }
-
-        public Command GetWordCommand { get; }
-
-        public Command GoToDetailsCommand { get; }
 
         // get random word from the list
         public string GetRandomWord()
