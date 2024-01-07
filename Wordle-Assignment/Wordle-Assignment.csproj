@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\splash.svg" />
+	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="000000"/>
 	</ItemGroup>
 
 	<ItemGroup>

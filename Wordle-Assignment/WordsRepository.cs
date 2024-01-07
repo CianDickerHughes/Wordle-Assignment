@@ -14,14 +14,11 @@ namespace Wordle_Assignment
         private Random random;
         private List<string> wordslist;
         HttpClient httpClient;
-        private int _wordsCount;
-
 
         public WordsRepository()
         {
             wordslist = new List<string>();
             random = new Random();
-            _wordsCount = wordslist.Count;
             httpClient = new();
             
         }
@@ -61,8 +58,6 @@ namespace Wordle_Assignment
                 if (response.IsSuccessStatusCode)
                 {
                     string contents = await response.Content.ReadAsStringAsync();
-                    //wordslist = JsonSerializer.Deserialize<List<Words>>(contents);
-                    //Save cntents t a fie
                     using (StreamWriter writer = new StreamWriter(filename))
                     {
                         writer.Write(contents);
@@ -83,7 +78,6 @@ namespace Wordle_Assignment
                 {
                     wordslist.Add(line);
                     Console.WriteLine(line);
-                    _wordsCount++;
                 }
             }
         }
@@ -126,6 +120,5 @@ namespace Wordle_Assignment
             return wordslist[which];
 
         }
-
     }
 }

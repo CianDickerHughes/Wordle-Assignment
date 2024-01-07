@@ -14,62 +14,65 @@ namespace Wordle_Assignment
     public class CheckWord
     {
         // Variables
-        Wordle wordsModel;
         List<string> userWords = new List<string>();
-        private string theWord = "";
-        private string isCorrect = "";
+        List<int> isCorrect = new List<int>();
+        public string theWord { get; set; } = "hi";
+        
 
         public CheckWord()
         {
-            wordsModel = new();
-            GetTheUserWord();
-            GetTheWord();
-
+            
         }
 
-        // get the user word from the wordle.xaml.cs
-        public void GetTheUserWord()
+        public CheckWord(string theWord)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                userWords = wordsModel.GetUserWord();
-            }
+            this.theWord = theWord; 
         }
 
-        // get the word from the wordle.xaml.cs
-        public void GetTheWord()
+        public CheckWord(string theWord, List<string> userWords)
         {
-            theWord = wordsModel.GetWord();
+            this.theWord = theWord;
+            this.userWords = userWords;
+            int i = 0;
         }
 
         // checks if the user got the right word
         public void ChecktheWord()
         {
-            GetTheUserWord();
-            GetTheWord();
-            for (int i = 0; i < 5; i++) 
+            //SetTheUserWord();
+            //SetTheWord();
+            isCorrect.Clear(); // Clear the previous correctness status
+
+            for (int i = 0; i < userWords.Count; i++)
             {
-                if (userWords[i].Equals(theWord[i]))
+               
+                string userWord = userWords[i];
+                string tempWord = theWord;
+
+                for (int j = 0; j < userWord.Length; j++)
                 {
-                    isCorrect = "1";
+                    if (char.ToUpper(theWord[i]) == char.ToUpper(userWords[i][0]))
+                    {
+                        isCorrect.Add(1); // Indicates a letter in the correct position
+                    }
+                    else if (theWord.IndexOf(char.ToUpper(userWords[i][0]), StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        isCorrect.Add(2); // Indicates a correct letter in the wrong position
+                    }
+                    else
+                    {
+                        isCorrect.Add(3); // Indicates no match
+                    }
                 }
-                else if (theWord.Contains(userWords[i]))
-                {
-                    isCorrect = "2";
-                }
-                else 
-                {
-                    isCorrect = "3";
-                }
-            
             }
         }
 
-        public string GetIsItCorrect() 
+        public List<int> GetIsItCorrect() 
         {
             ChecktheWord();
             return isCorrect;
         }
-
     }
 }
+
+// string userWords = userWords[i].toCharArray();

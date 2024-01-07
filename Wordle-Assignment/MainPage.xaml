@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Wordle_Assignment.MainPage"
-             Title="Wordle">
+             Title="Wordle"
+             Background="#696969">
 
     <!-- Cian Dicker-Hughes -->
     <!-- G00415413 -->
@@ -32,14 +33,18 @@
                 Text="Start Game"
                 Clicked="MoveToWordle"
                 HorizontalOptions="Center" 
-                WidthRequest="200"/>
+                WidthRequest="200"
+                Background="#00ff00"
+                TextColor="Black"/>
 
             <!-- Move to about Wordle and how to play-->
             <Button x:Name="MoveToAbout"
                     Text="About Wordle"
                     Clicked="MoveToAbout_Clicked"
                     HorizontalOptions="Center"
-                    WidthRequest="200"/>
+                    WidthRequest="200"
+                    Background="#ffd700"
+                    TextColor="Black"/>
 
         </VerticalStackLayout>
     </ScrollView>

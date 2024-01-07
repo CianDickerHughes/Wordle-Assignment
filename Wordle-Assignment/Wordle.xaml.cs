@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Wordle_Assignment;
@@ -12,51 +13,44 @@ public partial class Wordle : ContentPage
     List<Entry> entryFields = new List<Entry>();
     List<string> entryTextList = new List<string>();
     List<string> userWords = new List<string>();
+    List<int> correctnessStatus = new List<int>();
     WordsRepository wordsmodel;
     CheckWord wordCheck;
     private Color boardColour = Color.FromArgb("#696969");
-    private string theWord = "";
-    private int nextRow = 0, whichrow = 0;
+    private string theWord = "tom";
+    private int nextRow = -1, whichrow = 0;
 
     public Wordle()
     {
         InitializeComponent();
-        wordsmodel = new();
         CreatetheGrid();
-        getRandonWord();
-
-
-    }
-
-    // get the user word
-    public List<string> GetUserWord() 
-    {
-        int maxWhichrow = whichrow + 5;
-        for (int i = whichrow; i < maxWhichrow && i < entryTextList.Count; i++) 
-        {
-            userWords.Add(entryTextList[i]);
-        }
-        return userWords;
-    }
-    // get the word
-    public string GetWord()
-    {
-        return theWord;
-    }
-
-    // just give random word just for debuging
-    private async void getWords_Clicked(object sender, EventArgs e)
-    {
-        string word = wordCheck.GetIsItCorrect();
-        await DisplayAlert("This is the word", word, "ok");
+        wordGuess.IsEnabled = false;
     }
 
     // getting the word to start game
     private async void getRandonWord()
     {
+        wordsmodel = new();
         await wordsmodel.MakeCollection();
-        theWord = wordsmodel.GetRandomWord();
+        this.theWord = wordsmodel.GetRandomWord();
         await DisplayAlert("This is the word", theWord, "ok");
+    }
+
+    // to start the game
+    private void StartBtn_Clicked(object sender, EventArgs e)
+    {
+        getRandonWord();
+        StartBtn.IsEnabled = false;
+        wordGuess.IsEnabled = true;
+        dubug2.Text = theWord.ToString();
+        nextRow++;
+        CreatetheGrid();
+        var wordCheck = new CheckWord(theWord);
+    }
+
+    private void StartBtn_Clicked1(object sender, EventArgs e)
+    {
+        dubug3.Text = theWord.ToString();
     }
 
     // move to next row and see if guess is correct
@@ -70,11 +64,18 @@ public partial class Wordle : ContentPage
             // get the letters for the entry in the grid
             if (!string.IsNullOrWhiteSpace(entry.Text))
             { 
-                    entryTextList.Add(entry.Text);
+                entryTextList.Add(entry.Text);
             }
         }
 
-        wordCheck = new();
+        // send to word check 
+        GetUserWord();
+        var wordCheck = new CheckWord(theWord, userWords);
+        correctnessStatus = wordCheck.GetIsItCorrect();
+        int bob = 0;
+        for (int i = 0; i < correctnessStatus.Count; i++)
+            bob += correctnessStatus[i];
+        dubug.Text = bob.ToString();
 
         // make grid with text and move to new row
         GridGameTable.Children.Clear(); 
@@ -175,4 +176,25 @@ public partial class Wordle : ContentPage
             return false;
         }
     }
+
+    // get the user word
+    public List<string> GetUserWord()
+    {
+        int maxWhichrow = whichrow + 5;
+        userWords.Clear();
+        for (int i = whichrow; i < maxWhichrow && i < entryTextList.Count; i++)
+        {
+            userWords.Add(entryTextList[i]);
+        }
+        whichrow = maxWhichrow;
+        return userWords;
+    }
+
+    // get the word
+    public string GetWord()
+    {
+        string word = theWord;
+        return word;
+    }
+
 }
