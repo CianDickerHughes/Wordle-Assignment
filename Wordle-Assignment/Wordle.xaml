@@ -20,6 +20,7 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
 
+            <!-- the grid for wordle -->
             <Grid  x:Name="GridGameTable" BackgroundColor="Black" 
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
@@ -28,21 +29,12 @@
                 ColumnDefinitions="*,*,*,*,*">
             </Grid>
 
-            <Label x:Name="dubug"
-                Text="Wordle!"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-
             <Label x:Name="dubug2"
                     Text="Wordle!"
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
 
-            <Label x:Name="dubug3"
-                    Text="Wordle!"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
-
+            <!-- button to start wordle and guess -->
             <Button x:Name="wordGuess"
                     Text="Enter"
                     Clicked="WordGuess_Clicked"
@@ -56,12 +48,6 @@
                     HorizontalOptions="Center"
                     WidthRequest="300"
                     TextColor="Black"/>
-
-            <Button x:Name="test"
-                    Text="test"
-                    Clicked="StartBtn_Clicked1"
-                    HorizontalOptions="Center"
-                    WidthRequest="300"/>
 
             <CollectionView ItemsSource="{Binding Words}"/>
         </VerticalStackLayout>

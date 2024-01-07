@@ -17,12 +17,9 @@ namespace Wordle_Assignment
         List<string> userWords = new List<string>();
         List<int> isCorrect = new List<int>();
         public string theWord { get; set; } = "hi";
-        
 
-        public CheckWord()
-        {
-            
-        }
+        // constructor
+        public CheckWord() { }
 
         public CheckWord(string theWord)
         {
@@ -39,9 +36,7 @@ namespace Wordle_Assignment
         // checks if the user got the right word
         public void ChecktheWord()
         {
-            //SetTheUserWord();
-            //SetTheWord();
-            isCorrect.Clear(); // Clear the previous correctness status
+            isCorrect.Clear(); 
 
             for (int i = 0; i < userWords.Count; i++)
             {
@@ -53,20 +48,21 @@ namespace Wordle_Assignment
                 {
                     if (char.ToUpper(theWord[i]) == char.ToUpper(userWords[i][0]))
                     {
-                        isCorrect.Add(1); // Indicates a letter in the correct position
+                        isCorrect.Add(1); 
                     }
                     else if (theWord.IndexOf(char.ToUpper(userWords[i][0]), StringComparison.OrdinalIgnoreCase) != -1)
                     {
-                        isCorrect.Add(2); // Indicates a correct letter in the wrong position
+                        isCorrect.Add(2); 
                     }
                     else
                     {
-                        isCorrect.Add(3); // Indicates no match
+                        isCorrect.Add(3); 
                     }
                 }
             }
         }
 
+        // get if user got the word
         public List<int> GetIsItCorrect() 
         {
             ChecktheWord();
@@ -74,5 +70,3 @@ namespace Wordle_Assignment
         }
     }
 }
-
-// string userWords = userWords[i].toCharArray();

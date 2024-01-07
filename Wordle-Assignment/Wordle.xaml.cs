@@ -13,7 +13,7 @@ public partial class Wordle : ContentPage
     List<Entry> entryFields = new List<Entry>();
     List<string> entryTextList = new List<string>();
     List<string> userWords = new List<string>();
-    List<int> correctnessStatus = new List<int>();
+    List<int> correctnessStatus = new List<int>() { 3, 3, 3, 3, 3 };
     WordsRepository wordsmodel;
     CheckWord wordCheck;
     private Color boardColour = Color.FromArgb("#696969");
@@ -23,7 +23,7 @@ public partial class Wordle : ContentPage
     public Wordle()
     {
         InitializeComponent();
-        CreatetheGrid();
+        CreatetheGrid(correctnessStatus);
         wordGuess.IsEnabled = false;
     }
 
@@ -42,20 +42,37 @@ public partial class Wordle : ContentPage
         getRandonWord();
         StartBtn.IsEnabled = false;
         wordGuess.IsEnabled = true;
-        dubug2.Text = theWord.ToString();
         nextRow++;
-        CreatetheGrid();
+        CreatetheGrid(correctnessStatus);
+        correctnessStatus.Clear();
         var wordCheck = new CheckWord(theWord);
+        dubug2.Text = theWord.ToString();
     }
 
-    private void StartBtn_Clicked1(object sender, EventArgs e)
+    // check if the row is filled
+    private bool AreEntryBoxesFilledInRow(int row)
     {
-        dubug3.Text = theWord.ToString();
+        int startIndex = row * 5;
+        int endIndex = startIndex + 5;
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            if (i >= entryFields.Count || string.IsNullOrWhiteSpace(entryFields[i].Text))
+            {
+                return false;
+            }
+        }
+        return true; 
     }
 
     // move to next row and see if guess is correct
     private void WordGuess_Clicked(object sender, EventArgs e)
     {
+        if (!AreEntryBoxesFilledInRow(nextRow))
+        {
+            return;
+        }
+
         int initialCount = entryTextList.Count;
 
         // Loop through each Entry in the grid and collect the words
@@ -71,20 +88,19 @@ public partial class Wordle : ContentPage
         // send to word check 
         GetUserWord();
         var wordCheck = new CheckWord(theWord, userWords);
-        correctnessStatus = wordCheck.GetIsItCorrect();
-        int bob = 0;
-        for (int i = 0; i < correctnessStatus.Count; i++)
-            bob += correctnessStatus[i];
-        dubug.Text = bob.ToString();
+        List<int> isCorrect = wordCheck.GetIsItCorrect();
+        for (int i = 0; i < 5; i++) {
+            correctnessStatus.Add(isCorrect[i]);
+        }
 
         // make grid with text and move to new row
         GridGameTable.Children.Clear(); 
         nextRow++;
-        CreatetheGrid();
+        CreatetheGrid(correctnessStatus);
     }
 
     // make a grid with enter tags
-    public void CreatetheGrid()
+    public void CreatetheGrid(List<int> correctnessStatus)
     {
         // is it on moble or destop
         double devicewidth = Preferences.Default.Get("devicewidth", 480.0);
@@ -100,10 +116,12 @@ public partial class Wordle : ContentPage
 
         int entryTextIndex = 0;
         entryFields.Clear();
+        int index = 0;
 
         // making the border and entry
         for (int i = 0; i < 6; ++i)
         {
+
             for (int j = 0; j < 5; ++j)
             {
                 string entryText = entryTextIndex < entryTextList.Count ? entryTextList[entryTextIndex] : ""; // Get the text from entryTextList or set it to blank if out of range
@@ -136,6 +154,33 @@ public partial class Wordle : ContentPage
                         }
                     }
                 };
+
+                // change colour if its row
+                if (index < correctnessStatus.Count)
+                {
+                    if (nextRow >= 0 && nextRow < 6)
+                    {
+                        // Get the colour for the background based on correctnessStatus
+                        switch (correctnessStatus[index])
+                        {
+                            case 1:
+                                boardColour = Color.FromArgb("#00FF00"); // Green color
+                                break;
+                            case 2:
+                                boardColour = Color.FromArgb("#FFD700"); // Yellow color
+                                break;
+                            default:
+                                boardColour = Color.FromArgb("#696969"); // Grey color
+                                break;
+                        }
+                        index++; // Increment the index for the next iteration
+                    }
+                }
+                else 
+                {
+                    boardColour = Color.FromArgb("#696969");
+                }
+
 
                 // making the border
                 Border border = new Border
@@ -189,12 +234,4 @@ public partial class Wordle : ContentPage
         whichrow = maxWhichrow;
         return userWords;
     }
-
-    // get the word
-    public string GetWord()
-    {
-        string word = theWord;
-        return word;
-    }
-
 }
