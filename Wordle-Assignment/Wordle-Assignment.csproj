@@ -74,6 +74,9 @@
 	  <MauiXaml Update="AboutToWordle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Scoreboard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Wordle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

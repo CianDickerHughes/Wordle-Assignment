@@ -16,6 +16,7 @@ public partial class Wordle : ContentPage
     List<int> correctnessStatus = new List<int>();
     WordsRepository wordsmodel;
     CheckWord wordCheck;
+    Scoreboard scoreboard;
     private Color boardColour = Color.FromArgb("#696969");
     private string theWord = "tom";
     private int nextRow = -1, whichrow = 0;
@@ -47,10 +48,10 @@ public partial class Wordle : ContentPage
         var wordCheck = new CheckWord(theWord);
         dubug2.Text = theWord.ToString();
     }
+
     // restart the game
     private void restartGame() 
     {
-
         StartBtn.IsEnabled = true;
         wordGuess.IsEnabled = false;
 
@@ -73,6 +74,8 @@ public partial class Wordle : ContentPage
         int win = 0;
         int maxWhichrow = whichrow;
         bool game = true, answer = false;
+        Scoreboard scoreboard = new Scoreboard();
+
         for (int i = whichrow - 5; i < maxWhichrow && i < correctnessStatus.Count; i++)
         {
            win += correctnessStatus[i];
@@ -82,12 +85,15 @@ public partial class Wordle : ContentPage
         {
             game = await DisplayAlert("Game Win", "You Got the Word: "+ theWord + "\nDo you want to play another Game?\nOr go back to the Main Meun", "Main Menu", "Restart");
             answer = true;
+            
+            scoreboard.SetNextRow(nextRow);
         }
         // if player lose
         else if (nextRow == 5)
         {
             game = await DisplayAlert("Game Lose", "You did not get the word\nThe word is: " + theWord + "\nDo you want to play another Game?\nOr go back to the Main Meun", "Main Menu", "Restart");
             answer = true;
+            scoreboard.Game();
         }
         if (answer == true)
         {
@@ -290,5 +296,11 @@ public partial class Wordle : ContentPage
         }
         whichrow = maxWhichrow;
         return userWords;
+    }
+
+    // move to the scoreboard page
+    private async void Socreboard_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Scoreboard());
     }
 }

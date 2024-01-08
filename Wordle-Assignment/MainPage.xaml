@@ -7,7 +7,12 @@
 
     <!-- Cian Dicker-Hughes -->
     <!-- G00415413 -->
-    
+
+    <!-- Go to socreboard -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Score Board" Clicked="Socreboard_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"

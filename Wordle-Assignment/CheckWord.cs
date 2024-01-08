@@ -30,7 +30,6 @@ namespace Wordle_Assignment
         {
             this.theWord = theWord;
             this.userWords = userWords;
-            int i = 0;
         }
 
         // checks if the user got the right word

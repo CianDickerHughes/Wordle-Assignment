@@ -23,5 +23,11 @@
         {
             await Navigation.PushAsync(new AboutToWordle());
         }
+
+        // move to the scoreboard page
+        private async void Socreboard_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Scoreboard());
+        }
     }
 }

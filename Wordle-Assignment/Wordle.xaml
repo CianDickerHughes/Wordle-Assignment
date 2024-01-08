@@ -7,9 +7,10 @@
     <!-- Cian Dicker-Hughes -->
     <!-- G00415413 -->
 
-    <ContentPage.BindingContext>
-        <models:WordsRepository/>
-    </ContentPage.BindingContext>
+    <!-- Go to socreboard -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Score Board" Clicked="Socreboard_Clicked"/>
+    </ContentPage.ToolbarItems>
 
     <ScrollView>
         <VerticalStackLayout

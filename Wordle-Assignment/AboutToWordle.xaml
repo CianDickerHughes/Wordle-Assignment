@@ -10,7 +10,8 @@
 
     <VerticalStackLayout
         Spacing="5"
-        Padding="30,0">
+        Padding="30,0"
+        VerticalOptions="Center">
 
         <Image
             Source="wordle4.png"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Wordle_Assignment.Scoreboard"
+             Title="Scoreboard"
+             Background="#696969">
+
+    <!-- Cian Dicker-Hughes -->
+    <!-- G00415413 -->
+
+    <VerticalStackLayout
+        Spacing="5"
+        Padding="30,0">
+        
+        <Label 
+            Text="Scoreboard"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            FontSize="40"
+            TextDecorations="Underline" />
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Played- " FontSize="20"/>
+            <Label x:Name="gamesplayed_lbl" HorizontalOptions="Center" FontSize="20"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won- " FontSize="20"/>
+            <Label x:Name="gameswon_lbl" HorizontalOptions="Center" FontSize="20"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 1- " FontSize="12"/>
+            <Label x:Name="gameswononrow_1" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 2- " FontSize="12"/>
+            <Label x:Name="gameswononrow_2" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 3- " FontSize="12"/>
+            <Label x:Name="gameswononrow_3" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 4- " FontSize="12"/>
+            <Label x:Name="gameswononrow_4" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 5- " FontSize="12"/>
+            <Label x:Name="gameswononrow_5" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="Games Won on Row 6- " FontSize="12"/>
+            <Label x:Name="gameswononrow_6" HorizontalOptions="Center" FontSize="12"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
