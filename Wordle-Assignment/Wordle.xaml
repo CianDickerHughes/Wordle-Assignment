@@ -14,12 +14,13 @@
     <ScrollView>
         <VerticalStackLayout
             Spacing="10">
-            
-            <Label 
-                Text="Welcome to Wordle!"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
 
+            <Image
+                Source="wordle2.png"
+                SemanticProperties.Description="Wordle!"
+                HeightRequest="100"
+                HorizontalOptions="Center"/>    
+            
             <!-- the grid for wordle -->
             <Grid  x:Name="GridGameTable" BackgroundColor="Black" 
                 HorizontalOptions="Center"

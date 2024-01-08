@@ -33,7 +33,6 @@ public partial class Wordle : ContentPage
         wordsmodel = new();
         await wordsmodel.MakeCollection();
         this.theWord = wordsmodel.GetRandomWord();
-        await DisplayAlert("This is the word", theWord, "ok");
     }
 
     // to start the game
@@ -47,6 +46,24 @@ public partial class Wordle : ContentPage
         correctnessStatus.Clear();
         var wordCheck = new CheckWord(theWord);
         dubug2.Text = theWord.ToString();
+    }
+
+    private async void WordleWin() 
+    {
+        int win = 0;
+        int maxWhichrow = whichrow;
+        for (int i = whichrow - 5; i < maxWhichrow && i < correctnessStatus.Count; i++)
+        {
+           win += correctnessStatus[i];
+        }
+        if (win == 5)
+        {
+            await DisplayAlert("win", win.ToString(), "ok");
+        }
+        else 
+        {
+            await DisplayAlert("no", win.ToString(), "ok");
+        }
     }
 
     // check if the row is filled
@@ -92,6 +109,8 @@ public partial class Wordle : ContentPage
         for (int i = 0; i < 5; i++) {
             correctnessStatus.Add(isCorrect[i]);
         }
+
+        WordleWin();
 
         // make grid with text and move to new row
         GridGameTable.Children.Clear(); 

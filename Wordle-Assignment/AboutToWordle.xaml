@@ -2,15 +2,113 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Wordle_Assignment.AboutToWordle"
-             Title="AboutToWordle">
+             Title="How To Play Wordle"
+             Background="#696969">
 
     <!-- Cian Dicker-Hughes -->
     <!-- G00415413 -->
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="5"
+        Padding="30,0">
+
+        <Image
+            Source="wordle4.png"
+            SemanticProperties.Description="Wordle!"
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            Margin="5"/>
+
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="WORDLE"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            FontAttributes="Bold"
+            FontSize="40"
+            TextDecorations="Underline"/>
+
+        <HorizontalStackLayout
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Margin="5">
+            
+            <Image
+                Source="wordle5.png"
+                SemanticProperties.Description="Wordle!"
+                HeightRequest="125"
+                HorizontalOptions="Center"
+                Margin="5"/>
+            <VerticalStackLayout>
+                
+                <Label 
+                    Text="How To Play"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    FontSize="25"/>
+                
+                <Label
+                    Text="Guess the Wordle in 6 tries."
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"/>
+                
+                <Label
+                    Text="• Each guess must be a valid 5-letter word."
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"/>
+
+                <Label
+                     Text="• The color of the tiles will change to show"
+                     VerticalOptions="Center" 
+                     HorizontalOptions="Center"/>
+
+                <Label
+                     Text="how close your guess was to the word."
+                     VerticalOptions="Center" 
+                     HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Example"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            FontSize="25"/>
+        
+        <Image
+            Source="wordle3.png"
+            SemanticProperties.Description="Wordle!"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            Margin="5"/>
+
+        <Label
+             Text="T and C is in the word and in the correct spot."
+             VerticalOptions="Center" 
+             HorizontalOptions="Center"/>
+
+        <Label
+             Text="U and K is in the word but in the wrong spot."
+             VerticalOptions="Center" 
+             HorizontalOptions="Center"/>
+
+        <Label
+             Text="R is not in the word"
+             VerticalOptions="Center" 
+             HorizontalOptions="Center"/>
+
+        <!-- Move to wordle game -->
+        <Button
+            x:Name="MoveToGame"
+            Text="Start Game"
+            Clicked="MoveToWordle"
+            HorizontalOptions="Center" 
+            WidthRequest="200"
+            Background="#00ff00"
+            TextColor="Black"/>
+
     </VerticalStackLayout>
 </ContentPage>

@@ -8,4 +8,10 @@ public partial class AboutToWordle : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    // move to the game Wordle paga
+    private async void MoveToWordle(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Wordle());
+    }
 }

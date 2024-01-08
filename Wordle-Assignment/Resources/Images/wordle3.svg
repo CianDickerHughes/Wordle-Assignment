@@ -1,0 +1,41 @@
+<svg width="506" height="106" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ 
+ 
+<rect x="0" y="0" width="506" height="106" 
+style="fill:rgb(105,105,105);stroke-width:3;stroke:rgb(0,0,0)" />
+		
+<rect x="200" y="0" width="300" height="100" 
+style="fill:rgb(255,215,0);stroke-width:3;stroke:rgb(0,0,0)" />
+
+<rect x="0" y="0" width="100" height="100" 
+style="fill:rgb(0,255,0);stroke-width:3;stroke:rgb(0,0,0)" />
+
+<rect x="300" y="0" width="100" height="100" 
+style="fill:rgb(0,255,0);stroke-width:3;stroke:rgb(0,0,0)" />
+ 
+ <g stroke="black" >
+ 
+  <!-- The Upper left is 0,0 -->
+  <!-- Draw the top, middle and bottom horizontal lines -->
+ 
+  <line x1="0" y1="3" x2="500" y2="3" stroke-width="6" />
+  <line x1="0" y1="103" x2="500" y2="103" stroke-width="6" />
+  
+  <!-- Draw the vertical lines left to right -->
+ 
+  <line x1="3" y1="0" x2="3" y2="618" stroke-width="6" />
+  <line x1="103" y1="0" x2="103" y2="618" stroke-width="6" />
+  <line x1="203" y1="0" x2="203" y2="618" stroke-width="6" />
+  <line x1="303" y1="0" x2="303" y2="618" stroke-width="6" />
+  <line x1="403" y1="0" x2="403" y2="618" stroke-width="6" />
+  <line x1="503" y1="0" x2="503" y2="618" stroke-width="6" />
+  
+ </g>
+  
+ 
+<text x="25" y="75" fill="white" font-size="70px">T</text>
+<text x="125" y="75" fill="white" font-size="70px">R</text>
+<text x="225" y="75" fill="white" font-size="70px">U</text>
+<text x="325" y="75" fill="white" font-size="70px">C</text>
+<text x="425" y="75" fill="white" font-size="70px">K</text>
+</svg>

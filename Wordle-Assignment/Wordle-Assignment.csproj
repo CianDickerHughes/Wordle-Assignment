@@ -49,6 +49,10 @@
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\AppIcon\appiconfg.svg" />
 	  <None Remove="Resources\Images\wordle.svg" />
+	  <None Remove="Resources\Images\wordle2.svg" />
+	  <None Remove="Resources\Images\wordle3.svg" />
+	  <None Remove="Resources\Images\wordle4.svg" />
+	  <None Remove="Resources\Images\Wordle5.svg" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -58,7 +62,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="000000"/>
+	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="000000" />
 	</ItemGroup>
 
 	<ItemGroup>

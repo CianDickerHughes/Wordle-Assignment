@@ -39,7 +39,7 @@
 
             <!-- Move to about Wordle and how to play-->
             <Button x:Name="MoveToAbout"
-                    Text="About Wordle"
+                    Text="How to Play?"
                     Clicked="MoveToAbout_Clicked"
                     HorizontalOptions="Center"
                     WidthRequest="200"
