@@ -13,7 +13,7 @@ public partial class Wordle : ContentPage
     List<Entry> entryFields = new List<Entry>();
     List<string> entryTextList = new List<string>();
     List<string> userWords = new List<string>();
-    List<int> correctnessStatus = new List<int>() { 3, 3, 3, 3, 3 };
+    List<int> correctnessStatus = new List<int>();
     WordsRepository wordsmodel;
     CheckWord wordCheck;
     private Color boardColour = Color.FromArgb("#696969");
@@ -48,21 +48,59 @@ public partial class Wordle : ContentPage
         dubug2.Text = theWord.ToString();
     }
 
+    private void restartGame() 
+    {
+
+        StartBtn.IsEnabled = true;
+        wordGuess.IsEnabled = false;
+
+        entryFields.Clear();
+        entryTextList.Clear();
+        correctnessStatus.Clear();
+        userWords.Clear();
+
+        theWord = "tom";
+        nextRow = -1;
+        whichrow = 0;
+
+        GridGameTable.Children.Clear();
+        CreatetheGrid(correctnessStatus);
+
+    }
+
     private async void WordleWin() 
     {
         int win = 0;
         int maxWhichrow = whichrow;
+        bool game = true, answer = false;
         for (int i = whichrow - 5; i < maxWhichrow && i < correctnessStatus.Count; i++)
         {
            win += correctnessStatus[i];
         }
+        // if player win
         if (win == 5)
         {
-            await DisplayAlert("win", win.ToString(), "ok");
+            game = await DisplayAlert("Game Win", "You Got the Word: "+ theWord + "\nDo you want to play another Game?\nOr go back to the Main Meun", "Main Menu", "Restart");
+            answer = true;
         }
-        else 
+        // if player lose
+        else if (nextRow == 5)
         {
-            await DisplayAlert("no", win.ToString(), "ok");
+            game = await DisplayAlert("Game Lose", "You did not get the word\nThe word is: " + theWord + "\nDo you want to play another Game?\nOr go back to the Main Meun", "Main Menu", "Restart");
+            answer = true;
+        }
+        if (answer == true)
+        {
+            // move to main meun
+            if (game == true)
+            {
+                await Navigation.PushAsync(new MainPage());
+            }
+            // restart the game
+            else if (game == false)
+            {
+                restartGame();
+            }
         }
     }
 
@@ -177,7 +215,7 @@ public partial class Wordle : ContentPage
                 // change colour if its row
                 if (index < correctnessStatus.Count)
                 {
-                    if (nextRow >= 0 && nextRow < 6)
+                    if (nextRow >= 0 && nextRow < 7)
                     {
                         // Get the colour for the background based on correctnessStatus
                         switch (correctnessStatus[index])

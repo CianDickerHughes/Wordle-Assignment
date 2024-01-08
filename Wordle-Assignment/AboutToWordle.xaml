@@ -35,7 +35,7 @@
             <Image
                 Source="wordle5.png"
                 SemanticProperties.Description="Wordle!"
-                HeightRequest="125"
+                HeightRequest="105"
                 HorizontalOptions="Center"
                 Margin="5"/>
             <VerticalStackLayout>
